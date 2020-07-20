@@ -30,7 +30,7 @@ Happy Coding!
 
 
 ## Advice
-You should read `templates.cc` contents carefully to make sure you understand them before use.
+You should read `template.cc` contents carefully to make sure you understand them before use.
 
 
 #### Credits:
