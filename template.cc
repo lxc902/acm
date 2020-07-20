@@ -22,6 +22,7 @@
 using namespace std;
 
 
+// Min Cost Max Flow.
 template <typename T, typename C>
 class mcmf {
  public:
@@ -125,7 +126,12 @@ class mcmf {
   }
 };
 
-namespace debug {
+// Debug functions.
+namespace std {
+    // To Use: `debug(arr[123]);`
+    // Enable in Local Run: $ g++ -D LOCAL_DEBUG a.cc -o a.out;
+    // Using `std` to make complier prefer std::to_string for primitives.
+
     template <typename A, typename B>
     string to_string(pair<A, B> p);
     
@@ -208,7 +214,7 @@ namespace debug {
     debug_out(T...);
     }
     
-    #ifdef LOCAL
+    #ifdef LOCAL_DEBUG
     #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
     #else
     #define debug(...) 42
@@ -222,8 +228,7 @@ int main() {
   cin.tie(0);
   int n;
   cin >> n;
-
-
-
+  debug(n);
+  debug(make_pair(n, 23));
   return 0;
 }

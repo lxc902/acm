@@ -16,7 +16,14 @@ Then in each contest:
 cd ~/acm
 mkdir cf_round_123
 cd cf_round_123
-ta # This will create a.cc, same for b.cc, c.cc etc.
+
+# This will create a.cc, same `tb` for b.cc etc.
+ta
+
+# ... solving problem in editor ...
+
+# This will compile a.cc and run a.out with local debug mode.
+ra 
 ```
 
 Happy Coding!

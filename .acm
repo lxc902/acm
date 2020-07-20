@@ -1,13 +1,17 @@
-# Create template (if not exists) and Open file.
+# ACM bash helpers
+
+# Create $1.cc (if not exists) from template and Open file.
 function t {
+  if [ -z $1 ]; then
+    echo "No input!"
+    return
+  fi
   if [ ! -f $1.cc ]; then
     echo "Creating: $1.cc"
     cp ~/acm/template.cc $1.cc
   fi
-  v $1.cc
+  gvim $1.cc
 }
-
-
 alias ta="t a"
 alias tb="t b"
 alias tc="t c"
@@ -18,9 +22,19 @@ alias tg="t g"
 alias th="t h"
 alias ti="t i"
 alias tj="t j"
-alias tk="t k"
-alias tl="t l"
-alias tm="t m"
-alias tn="t n"
-alias to="t o"
+
+# Compile and Run $1.cc
+function r {
+  g++ -D LOCAL_DEBUG $1.cc -o $1.out && ./$1.out
+}
+alias ra="r a"
+alias rb="r b"
+alias rc="r c"
+alias rd="r d"
+alias re="r e"
+alias rf="r f"
+alias rg="r g"
+alias rh="r h"
+alias ri="r i"
+alias rj="r j"
 
