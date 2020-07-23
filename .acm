@@ -2,6 +2,7 @@
 
 # Create $1.cc (if not exists) from template and Open file.
 function t {
+  set -x
   if [ -z $1 ]; then
     echo "No input!"
     return
@@ -11,6 +12,7 @@ function t {
     cp ~/acm/template.cc $1.cc
   fi
   gvim $1.cc
+  set +x
 }
 alias ta="t a"
 alias tb="t b"
@@ -25,7 +27,8 @@ alias tj="t j"
 
 # Compile and Run $1.cc
 function r {
-  g++ -D LOCAL_DEBUG $1.cc -o $1.out && ./$1.out
+  echo "> g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
+  g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1
 }
 alias ra="r a"
 alias rb="r b"
