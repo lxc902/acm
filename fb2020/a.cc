@@ -143,8 +143,30 @@ void dfspost(const vector<vector<int>>& g, int root, int parent, proc_func post)
 } // namespace
 
 void solve() {
-}
+  int n; cin>>n;
+  string in, out; cin >>in >>out;
+  assert(in.size() == n);
+  const int N = n+10;
+  char ans[N][N];
+  for (int i=0;i<n;i++) {
+    ans[i][i]='Y';
+    for(int j=i-1;j>=0;j--) {
+      if (out[j+1] =='Y' && in[j]=='Y' && ans[i][j+1]=='Y') ans[i][j]='Y';
+      else ans[i][j]='N';
+    }
+    for(int j=i+1;j<n;j++) {
+      if (out[j-1] =='Y' && in[j]=='Y' && ans[i][j-1]=='Y') ans[i][j]='Y';
+      else ans[i][j]='N';
+    }
+  }
+  for (int i=0;i<n;i++) {
+    for(int j=0;j<n;j++) {
+      cout<<ans[i][j];
+    }
+    cout<<endl;
+  }
 
+}
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);

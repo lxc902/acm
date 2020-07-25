@@ -4,11 +4,11 @@
 function t {
   set -x
   if [ -z $1 ]; then
-    echo "No input!"
+    >&2 echo "No input!"
     return
   fi
   if [ ! -f $1.cc ]; then
-    echo "Creating: $1.cc"
+    >&2 echo "Creating: $1.cc"
     cp ~/acm/template.cc $1.cc
   fi
   gvim $1.cc
@@ -27,7 +27,7 @@ alias tj="t j"
 
 # Compile and Run $1.cc
 function r {
-  echo "> g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
+  >&2 echo "> g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
   g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1
 }
 alias ra="r a"
