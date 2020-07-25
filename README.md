@@ -8,6 +8,7 @@ To use, first set up your bash:
 cd ~
 git clone https://github.com/lxc902/acm.git
 echo "source ~/acm/.acm" >> ~/.bashrc; source ~/.bashrc
+echo "source ~/acm/.mac_acm" >> ~/.bash_profile; source ~/.bash_profile
 ```
 
 Then in each contest:

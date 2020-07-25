@@ -26,8 +26,8 @@ alias tj="t j"
 
 # Compile and Run $1.cc
 function r {
-  >&2 echo "> g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
-  g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1
+  >&2 echo "> c++ -std=c++17 -stdlib=libc++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
+  c++ -std=c++17 -stdlib=libc++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1 
 }
 alias ra="r a"
 alias rb="r b"
