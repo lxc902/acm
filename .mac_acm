@@ -26,8 +26,10 @@ alias tj="t j"
 
 # Compile and Run $1.cc
 function r {
-  >&2 echo "> c++ -std=c++17 -stdlib=libc++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
-  c++ -std=c++17 -stdlib=libc++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1 
+  >&2 echo ">c++ -std=c++17 -stdlib=libc++ -Wl,-stack_size -Wl,999000000 -O2 -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
+  #c++ -std=c++17 -stdlib=libc++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1 
+  c++ -std=c++17 -stdlib=libc++ -Wl,-stack_size -Wl,999000000 -O2 -D LOCAL_DEBUG $1.cc -o $1 && ./$1
+  # /usr/bin/time -l ./$1
 }
 alias ra="r a"
 alias rb="r b"

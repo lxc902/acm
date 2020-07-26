@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <ctime>
 #define pb push_back
-#define ll int//long long
+#define ll long long
 #define all(x) x.begin(), x.end()
 // #include <bits/stdc++.h>
  
@@ -273,9 +273,6 @@ void solve() {
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
-  int a = int((1L<<31)-1)+1;
-  cout<<a;
-  return 0;
   int t;
   cin >> t;
   for(int i=1;i<=t;i++) {
