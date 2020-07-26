@@ -1,5 +1,8 @@
 # ACM bash helpers
 
+# Important!! to avoid segment fault on linux.
+ulimit -s unlimited
+
 # Create $1.cc (if not exists) from template and Open file.
 function t {
   if [ -z $1 ]; then
@@ -26,8 +29,9 @@ alias tj="t j"
 
 # Compile and Run $1.cc
 function r {
-  >&2 echo "> g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
-  g++ -D LOCAL_DEBUG $1.cc -o $1 && ./$1
+  >&2 echo "> g++ -std=c++17 -O2 -D LOCAL_DEBUG $1.cc -o $1 && ./$1"
+  g++ -std=c++17 -O2 -D LOCAL_DEBUG $1.cc -o $1 && ./$1
+  # g++  -std=c++17  -D LOCAL_DEBUG d2.cc -o d2 && /usr/bin/time -v ./d2 < d2.in
 }
 alias ra="r a"
 alias rb="r b"

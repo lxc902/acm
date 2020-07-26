@@ -18,6 +18,7 @@
 #include <cstdlib>
 #include <ctime>
 #define pb push_back
+#define ll int//long long
 #define all(x) x.begin(), x.end()
 // #include <bits/stdc++.h>
  
@@ -163,24 +164,122 @@ class PQ {
   void make(initializer_list<T> in) { s.insert(all(in)); }
 
   const T& top() { assert(!s.empty()); return *s.begin(); }
-  T&& pop() { assert(!s.empty());  T t=top(); s.erase(s.begin()); return move(t); }
-  void push(T v) { s.insert(v); }
+  void pop() { assert(!s.empty());  s.erase(s.begin()); } // DNS
+  void insert(T v) { s.insert(v); } // DNS
   void remove(T v) { auto it=s.find(v); if(it!=s.end()) {s.erase(it);} }
 
+  bool empty() { return s.empty(); } // DNS
   multiset<T, Compare> s;  // DNS private
  private:
 };
 
 void solve() {
+  int n, m, a, b;
+  cin >> n >> m >> a >> b;
+  a--; b--;
+  vector<vector<int>> g(n);
+  vector<ll> c(n);
+  for(int i=0;i<n;i++) {
+    int p; cin >> p >> c[i];
+    if (p) {
+      g[i].pb(p-1); g[p-1].pb(i);
+    }
+  }
+
+  vector<ll> cost(n, -1);
+  vector<int> d2s(n);
+  vector<int> par(n);
+  dfspre(g, a, -1, [&](int x,int pa) {
+    if (pa>=0) {
+      d2s[x]=d2s[pa]+1;
+      if (d2s[x]<=m && c[x]!=0) cost[x]=c[x];
+    } else {
+      d2s[x] = 0;
+      cost[x]=0;
+    }
+    par[x] = pa;
+  });
+  vector<int> path;
+  int tb=b; while(tb!=-1) { path.pb(tb); tb=par[tb]; }
+  reverse(all(path));
+
+  vector<int> d2d(n);
+  dfspre(g, b, -1, [&](int x,int pa) {
+    if (pa>=0) d2d[x]=d2d[pa]+1;
+    else d2d[x] = 0;
+  });
+
+  vector<int> drank(n, -1);
+  PQ pq([&](int i, int j) { return cost[i] < cost[j]; });
+  auto updcost = [&](int i) {
+    if(pq.empty()) return;
+    if(c[i]==0 && i!=b) return;
+    if (cost[i] == -1 || cost[i] > cost[pq.top()]+c[i]) cost[i] = cost[pq.top()]+c[i];
+  };
+  auto updpq = [&](int i) {
+    if (cost[i]<0) return;
+    int d = d2d[i];
+    if (drank[d]<0 || cost[drank[d]]>cost[i]) {
+      if (drank[d]>=0) pq.remove(drank[d]);
+      drank[d] = i;
+      pq.insert(drank[d]);
+    }
+  };
+
+  for(int i=0;i<path.size();i++) {
+    int v = path[i];
+    updcost(v);
+    if (i==path.size()-1) break;
+    int nxt = path[i+1];
+    int out = d2d[v] + m;
+    if (out<n && drank[out]>=0) {
+      pq.remove(drank[out]);
+      drank[out] = -1;
+    }
+    out--;
+    for (int y : g[v]) if(y!=par[v] && y!=nxt) {
+      dfs(g, y, v, [&](int x, int pa) { // pre
+        updcost(x);
+        if (out>=0 && out<n && drank[out]>=0) {
+          pq.remove(drank[out]);
+        }
+        out--;
+      },
+      [&](int x, int pa) { // post
+        out++;
+        if (out>=0 && out<n && drank[out]>=0) {
+          pq.insert(drank[out]);
+        }
+      });
+    }
+
+    updpq(v);
+    for (int y : g[v]) if(y!=par[v] && y!=nxt) {
+      dfspre(g, y, v, [&](int x, int pa) { // pre
+        if (d2d[x] - d2d[v] <= m-1) {
+          updpq(x);
+        }
+      });
+    }
+    //debug(i, pq.s);
+    //debug(cost);
+  }
+  //debug(b);
+  //debug(cost);
+  if (cost[b] <0 ) cout << -1 <<endl;
+  else cout << cost [b] - c[b] << endl;
 }
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
+  int a = int((1L<<31)-1)+1;
+  cout<<a;
+  return 0;
   int t;
   cin >> t;
   for(int i=1;i<=t;i++) {
-    cout<< "Case #"<<i<<": " << endl;
+    cout<< "Case #"<<i<<": ";
     solve();
   }
   return 0;
