@@ -174,6 +174,17 @@ class PQ {
 };
 
 void solve() {
+  int n;
+  string st;
+  cin >>n >> st;
+  int a=0, b=0;
+  for(int i=0;i<n;i++) {
+    if(st.at(i)=='A') a++;
+    else b++;
+  }
+  if (a+1==b || b+1==a) cout << 'Y'; 
+  else cout << 'N';
+  cout<< endl;
 }
 
 int main() {

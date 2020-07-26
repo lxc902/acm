@@ -174,6 +174,24 @@ class PQ {
 };
 
 void solve() {
+  int n; cin>> n;
+  vector<pair<int,int>> phs(n);
+  for(int i=0;i<n;i++) cin >> phs[i].first >> phs[i].second;
+  sort(all(phs));
+  map<int,int> left;
+  auto update = [&](int& bst, int val) {
+    if (val>bst) bst = val;
+  };
+  int mx=0;
+  for(auto ph : phs) {
+    int pi = ph.first;
+    int hi = ph.second;
+    update(left[pi+hi], left[pi]+hi);
+    update(left[pi], left[pi-hi]+hi);
+    mx = max(mx, left[pi+hi]);
+    mx = max(mx, left[pi]);
+  }
+  cout << mx << endl;
 }
 
 int main() {
