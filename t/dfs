@@ -1,0 +1,25 @@
+
+// DFS on tree. Usage: dfs(graph, root, pre-processing, post-processing);
+namespace {
+auto noop = [](int x, int pa){};
+using proc_func = std::function<void(int x, int pa)>;
+void dfs(const vector<vector<int>>& g, int x, int parent, proc_func pre, proc_func post) {
+  pre(x, parent);
+  for(int y : g[x]) {
+    if (y==parent) continue;
+    dfs(g, y, x, pre, post);
+  }
+  post(x, parent);
+}
+void dfs(const vector<vector<int>>& g, int root, proc_func pre, proc_func post) {
+  dfs(g, root, /*parent=*/-1, pre, post);
+}
+void dfspre(const vector<vector<int>>& g, int root, int parent, proc_func pre) {
+  dfs(g, root, parent, pre, noop);
+}
+void dfspost(const vector<vector<int>>& g, int root, int parent, proc_func post) {
+  dfs(g, root, parent, noop, post);
+}
+} // t/dfs
+
+

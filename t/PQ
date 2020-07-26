@@ -1,0 +1,32 @@
+
+// Min Priority Queue
+template<typename T = int, typename Compare = std::less<T>>
+class PQ {
+  /**
+  Usage 1 (defaut): Min Int PQ, i.e. top() gives minimum:
+    PQ pq;
+
+  Usage 2: custom comparator (becomes Max Int PQ):
+    auto cmp = [&](auto i, auto j) { return i > j; };
+    PQ pq(cmp);
+
+  Usage 3: custom type + comparator (becomes Max Double PQ):
+    auto cmp = [&](auto i, auto j) { return i > j; };
+    PQ<double, decltype(cmp)> pq(cmp);
+  */
+ public:
+  PQ(Compare comp = Compare()):s(comp) {}
+  void make(const vector<T>& in) { s.insert(all(in)); }
+  void make(initializer_list<T> in) { s.insert(all(in)); }
+
+  const T& top() { assert(!s.empty()); return *s.begin(); }
+  void pop() { assert(!s.empty());  s.erase(s.begin()); }
+  void insert(T v) { s.insert(v); }
+  void remove(T v) { auto it=s.find(v); if(it!=s.end()) {s.erase(it);} }
+
+  bool empty() { return s.empty(); }
+  multiset<T, Compare> s;  // DNS private
+ private:
+}; // t/PQ
+
+

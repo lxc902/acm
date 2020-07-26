@@ -1,30 +1,13 @@
-#include <vector>
-#include <cassert>
-#include <list>
-#include <map>
-#include <set>
-#include <deque>
-#include <stack>
-#include <bitset>
-#include <algorithm>
-#include <functional>
-#include <numeric>
-#include <utility>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
+#include <bits/stdc++.h>
 #define ll long long
 #define pb push_back
 #define all(x) x.begin(), x.end()
-// #include <bits/stdc++.h>
  
 using namespace std;
- 
- // Debug functions.
+
+
+
+// Debug functions.
 namespace std {
     // To Use: `debug(arr[123]);`
     // Enable in Local Run: $ g++ -D LOCAL_DEBUG a.cc -o a.out;
@@ -118,11 +101,12 @@ namespace std {
     #else
     #define debug(...) 42
     #endif
-}
- 
+} // t/debug
+
+
 // DFS on tree. Usage: dfs(graph, root, pre-processing, post-processing);
 namespace {
-auto noop = [](int x, int pa){}; // DNS
+auto noop = [](int x, int pa){};
 using proc_func = std::function<void(int x, int pa)>;
 void dfs(const vector<vector<int>>& g, int x, int parent, proc_func pre, proc_func post) {
   pre(x, parent);
@@ -141,7 +125,8 @@ void dfspre(const vector<vector<int>>& g, int root, int parent, proc_func pre) {
 void dfspost(const vector<vector<int>>& g, int root, int parent, proc_func post) {
   dfs(g, root, parent, noop, post);
 }
-} // namespace
+} // t/dfs
+
 
 // Min Priority Queue
 template<typename T = int, typename Compare = std::less<T>>
@@ -164,14 +149,16 @@ class PQ {
   void make(initializer_list<T> in) { s.insert(all(in)); }
 
   const T& top() { assert(!s.empty()); return *s.begin(); }
-  void pop() { assert(!s.empty());  s.erase(s.begin()); } // DNS
-  void insert(T v) { s.insert(v); } // DNS
+  void pop() { assert(!s.empty());  s.erase(s.begin()); }
+  void insert(T v) { s.insert(v); }
   void remove(T v) { auto it=s.find(v); if(it!=s.end()) {s.erase(it);} }
 
-  bool empty() { return s.empty(); } // DNS
+  bool empty() { return s.empty(); }
   multiset<T, Compare> s;  // DNS private
  private:
-};
+}; // t/PQ
+
+
 
 void solve() {
   int n, m, a, b;
@@ -281,3 +268,4 @@ int main() {
   }
   return 0;
 }
+
