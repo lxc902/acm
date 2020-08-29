@@ -3,16 +3,21 @@
 template<typename T = int, typename Compare = std::less<T>>
 class PQ {
   /**
-  Usage 1 (defaut): Min Int PQ, i.e. top() gives minimum:
-    PQ pq;
+  Usage 1 (defaut): Min int PQ, i.e. top() gives minimum:
+    PQ s;
 
-  Usage 2: custom comparator (becomes Max Int PQ):
+  Usage 2: custom comparator (becomes Max int PQ):
     auto cmp = [&](auto i, auto j) { return i > j; };
-    PQ pq(cmp);
+    PQ s(cmp);
 
-  Usage 3: custom type + comparator (becomes Max Double PQ):
+  Usage 3: custom type (becomes Min ll PQ):
+    PQ<ll> s;
+
+  Usage 4.1: custom type + std comparator (becomes Max ll PQ):
+    PQ<ll, std::greater<ll>> s;
+  Usage 4.2: custom type + custom comparator (becomes Max double PQ):
     auto cmp = [&](auto i, auto j) { return i > j; };
-    PQ<double, decltype(cmp)> pq(cmp);
+    PQ<double, decltype(cmp)> s(cmp);
   */
  public:
   PQ(Compare comp = Compare()):s(comp) {}

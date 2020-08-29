@@ -1,9 +1,16 @@
 #include <bits/stdc++.h>
-#define ll long long
+using namespace std;
+using ll = long long;
+using vi = vector<int>;
+using vll = vector<ll>;
+#define fi first
+#define se second
+#define mp make_pair
 #define pb push_back
 #define all(x) x.begin(), x.end()
- 
-using namespace std;
+//#define pct __builtin_popcount // count of 1s
+// ll: _popcountll; _ctz: tail zeros; _clz: leading zeros.
+
 
 void solve() {
 }
